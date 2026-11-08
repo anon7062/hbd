@@ -43,7 +43,7 @@ button{font-family:inherit;cursor:pointer;border:0}
 main{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:28px 16px 90px;text-align:center;position:relative;z-index:2}
 h2{margin:0;font-size:clamp(2.2rem,9vw,4rem);line-height:1.25;padding:.05em .15em;background:linear-gradient(90deg,#ff3d8b,#ff9f1c,#7c4dff,#00b4d8);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200%;animation:bg 5s linear infinite}
 .sub{font-size:1.3rem;font-weight:600;margin:0}
-.photo{width:min(220px,55vw, 26vh);aspect-ratio:1;border-radius:50%;border:8px solid #fff;box-shadow:0 10px 26px #0003,0 0 0 6px #ff5fa2;background:#fff8 center/cover;display:grid;place-items:center;cursor:pointer;overflow:hidden;transform:rotate(-4deg);transition:transform .3s;margin:6px 0}
+.photo{width:min(220px,55vw, 26vh);aspect-ratio:1;border-radius:50%;border:8px solid #fff;box-shadow:0 10px 26px #0003,0 0 0 6px #ff5fa2;background:#fff8 center/cover;display:grid;place-items:center;overflow:hidden;transform:rotate(-4deg);transition:transform .3s;margin:6px 0}
 .photo:hover{transform:rotate(3deg) scale(1.04)}
 .photo span{padding:14px;font-weight:600;font-size:.95rem;color:#3b1f4a}
 .photo.has span{display:none}
@@ -90,10 +90,7 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:10}
 <main>
   <h2>Happy Birthday, Angel!</h2>
   <p class="sub">Wish you all the best</p>
-  <label class="photo" id="photo" title="Your photo goes here">
-    <span>📷 Your photo goes here</span>
-    <input type="file" accept="image/*" id="file" hidden>
-  </label>
+  <div class="photo" id="photo"></div>
   <p class="cap" id="cap"></p>
   <div class="cake" id="cake" title="Tap to blow the candles!">
     <div class="candle" style="left:78px"><div class="flame"></div></div>
@@ -180,10 +177,6 @@ $('cake').onclick = () => {
 const photo = $('photo');
 function setPhoto(src){photo.style.backgroundImage = `url("${src}")`; photo.classList.add('has')}
 if(PHOTO) setPhoto(PHOTO);
-$('file').onchange = e => {
-  const f = e.target.files[0]; if(!f) return;
-  const r = new FileReader(); r.onload = () => setPhoto(r.result); r.readAsDataURL(f);
-};
 
 $('noteBtn').onclick = () => $('modal').classList.add('show');
 $('closeNote').onclick = () => $('modal').classList.remove('show');
